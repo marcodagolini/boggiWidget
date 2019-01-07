@@ -4,9 +4,11 @@
     <script src="https://lpcdn.lpsnmedia.net/unifiedwindow/widgetSDK.min.js"></script>
     <script type="application/javascript">
 	    
-	    var posturl = "https://www.boggi.com/it_IT/abbigliamento/abiti/";
-	    $("#myPageHTML").html('<object width="380" height="380" data="' + posturl + '">');
-	    $("#myHeader").innerHTML = 'Hello World';
+	    $(document).ready(function(){
+		    var posturl = "https://www.boggi.com/it_IT/abbigliamento/abiti/";
+		    $("#myPageHTML").html('<object width="380" height="380" data="' + posturl + '">');
+		    $("#myHeader").innerHTML = 'Hello World';
+	    });
     
        
 	    
