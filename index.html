@@ -36,8 +36,18 @@
 			    console.log(data);
 		    };
 		    
+		    var onSuccess2 = function(data) {
+			    console.log(data);
+		    };
+		    
+		    var onError2 = function(data) {
+			    console.log(data);
+		    };
+		    
 		    setInterval(function(){
 			    SDK.get('visitorJourney.pages', onSuccess1, onError1);
+			    SDK.get('SDE.customerDetails', onSuccess2, onError2);
+			    
 		    }, 10000);
 		    
 		    
