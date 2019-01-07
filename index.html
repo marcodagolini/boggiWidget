@@ -6,25 +6,25 @@
    
 	    
 	    $(document).ready(function(){
-		    setTimeout(function(){
-		    	var SDK=lpTag.agentSDK;
-		    	SDK.init();
+
+		    var SDK=lpTag.agentSDK;
+		    SDK.init();
 		    
-		    	var onSuccess1 = function(data) {
-			    	console.log(data);
-		    	};
+		    var onSuccess1 = function(data) {
+			    console.log(data);
+		    };
 		    
-		    	var onError1 = function(data) {
-			    	console.log(data);
-		    	};
+		    var onError1 = function(data) {
+			    console.log(data);
+		    };
 		    
-		    	SDK.get('visitorJourney.pages', onSuccess1, onError1);
+		    SDK.get('visitorJourney.pages', onSuccess1, onError1);
 		    
 		    
-		    	var posturl = "https://www.boggi.com/it_IT/abbigliamento/abiti/";
-		    	document.getElementById("myHeader").innerHTML = 'Hello World';
-		    	$("#myPageHTML").html('<object width="780" height="380" data="' + posturl + '">');
-		    }, 3000);
+		    var posturl = "https://www.boggi.com/it_IT/abbigliamento/abiti/";
+		    document.getElementById("myHeader").innerHTML = 'Hello World';
+		    $("#myPageHTML").html('<object width="780" height="380" data="' + posturl + '">');
+
 	    });
     
        
