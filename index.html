@@ -3,10 +3,29 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script src="https://lpcdn.lpsnmedia.net/unifiedwindow/widgetSDK.min.js"></script>
     <script type="application/javascript">
+	    
+	    var SDK=lpTag.agentSDK;
+	    SDK.init();
+	    
+
+	    
+	    
+              	
 	
    
 	    
 	    $(document).ready(function(){
+		    var onSuccess1 = function(data) {
+			    console.log(data);
+		    };
+		    
+		    var onError1 = function(data) {
+			    console.log(data);
+		    };
+		    
+		    SDK.get('visitorJourney.pages', onSuccess1, onError1);
+		    
+		    
 		    var posturl = "https://www.boggi.com/it_IT/abbigliamento/abiti/";
 		    document.getElementById("myHeader").innerHTML = 'Hello World';
 		    $("#myPageHTML").html('<object width="780" height="380" data="' + posturl + '">');
