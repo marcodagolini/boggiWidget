@@ -37,6 +37,7 @@
 		    
 		    var onSuccess2 = function(data) {
 			    console.log(data);
+			    document.getElementById("myHeader").innerHTML = data[0].customerId;
 		    };
 		    
 		    var onError2 = function(data) {
@@ -50,7 +51,7 @@
 		    }, 10000);
 		    
 		    
-		    document.getElementById("myHeader").innerHTML = 'Hello World';
+		    
 		    
 
 	    });
