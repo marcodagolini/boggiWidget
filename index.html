@@ -4,17 +4,13 @@
     <script src="https://lpcdn.lpsnmedia.net/unifiedwindow/widgetSDK.min.js"></script>
     <script type="application/javascript">
 	    
-	    var SDK=lpTag.agentSDK;
-	    SDK.init();
-	    
-
-	    
-	    
-              	
-	
    
 	    
 	    $(document).ready(function(){
+		    
+		    var SDK=lpTag.agentSDK;
+		    SDK.init();
+		    
 		    var onSuccess1 = function(data) {
 			    console.log(data);
 		    };
