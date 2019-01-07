@@ -13,6 +13,10 @@
 		    
 		    var onSuccess1 = function(data) {
 			    console.log(data);
+			    var myLength = data.length;
+			    for(var m = 0; m < myLength; m++){
+				 console.log(data[0].url);   
+			    }
 		    };
 		    
 		    var onError1 = function(data) {
