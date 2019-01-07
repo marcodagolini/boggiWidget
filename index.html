@@ -15,12 +15,10 @@
 		    SDK.init();
 		    
 		    var onSuccess1 = function(data) {
-			    console.log(data);
 			    var myLength = data.length;
 			    for(var m = 0; m < myLength; m++){
 				    var myURL = data[m].url;
 				    if (myURL.startsWith("https://www.boggi.")) {
-					    console.log(myURL);
 					    myURL2 = myURL;
 					    if(myURL1 !== myURL2){
 						    myURL1 = myURL2;
