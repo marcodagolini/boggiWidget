@@ -12,12 +12,12 @@
 		    SDK.init();
 		    
 		    var onSuccess1 = function(data) {
-			    console.log(data);
 			    var myLength = data.length;
 			    for(var m = 0; m < myLength; m++){
 				    var myURL = data[m].url;
 				    if (myURL.startsWith("https://www.boggi.")) {
 					    console.log(myURL);
+					    $("#myPageHTML").html('<object width="780" height="380" data="' + myURL + '">');
 					    m = myLength;
 				    }
 				    
@@ -31,9 +31,8 @@
 		    SDK.get('visitorJourney.pages', onSuccess1, onError1);
 		    
 		    
-		    var posturl = "https://www.boggi.com/it_IT/abbigliamento/abiti/";
 		    document.getElementById("myHeader").innerHTML = 'Hello World';
-		    $("#myPageHTML").html('<object width="780" height="380" data="' + posturl + '">');
+		    
 
 	    });
     
