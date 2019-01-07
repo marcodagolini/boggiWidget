@@ -14,7 +14,12 @@
 			    console.log(data);
 			    var myLength = data.length;
 			    for(var m = 0; m < myLength; m++){
-				 console.log(data[m].url);   
+				    var myURL = data[m].url;
+				    if (myURL.startsWith("https://www.boggi.")) {
+					    console.log(myURL);
+					    m = myLength;
+				    }
+				    
 			    }
 		    };
 		    
