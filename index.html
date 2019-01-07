@@ -6,6 +6,9 @@
    
 	    
 	    $(document).ready(function(){
+		    
+		    var myURL1 = "";
+		    var myURL2 = "";
 
 		    var SDK=lpTag.agentSDK;
 		    SDK.init();
@@ -17,7 +20,11 @@
 				    var myURL = data[m].url;
 				    if (myURL.startsWith("https://www.boggi.")) {
 					    console.log(myURL);
-					    $("#myPageHTML").html('<object width="780" height="380" data="' + myURL + '">');
+					    myURL2 = myURL;
+					    if(myURL1 !== myURL2){
+						    myURL1 = myURL2;
+						    $("#myPageHTML").html('<object width="780" height="380" data="' + myURL2 + '">');
+					    }
 					    m = myLength;
 				    }
 			    }
