@@ -1,0 +1,112 @@
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="https://lpcdn.lpsnmedia.net/unifiedwindow/widgetSDK.min.js"></script>
+    <script src="https://liveengagesa.com/widgetExample/ytd.js"></script>
+    <script type="application/javascript">
+	    
+    
+        var lpWidgetSDK,
+        widgetSDKAPI = lpTag.LPWidgetSDK.API;
+        window.addEventListener("load", function () {
+            var bindingEvent = [widgetSDKAPI.events.CONVERSATION_INFO, widgetSDKAPI.events.MESSAGES],
+                    opts = {bind: {}};
+            bindingEvent.forEach(function (eventName) {
+                opts.bind[eventName] = {func: _onEvent, context: this};
+            });
+            lpWidgetSDK = lpTag.LPWidgetSDK.init(opts);
+        }.bind(this));
+        function _onEvent(eventData) {
+            if (eventData && widgetSDKAPI.events.MESSAGES === eventData.type) {
+                var text = eventData.data && typeof  eventData.data.content === "string" && eventData.data.content;
+		    console.log(text);
+                if (text) {
+                    funci(text);
+                }
+            } else if (eventData && widgetSDKAPI.events.CONVERSATION_INFO === eventData.type) {
+                var state = eventData.data && eventData.data.state === "ended";
+		    console.log(eventData.data);
+                if (state) {
+                    disposeWidget();
+                }
+            }
+        }
+        function disposeWidget() {
+            lpWidgetSDK.dispose(function (data) {
+                console.log("widget has been disposed");
+            });
+        }
+       
+        function isYTSearch(text) {
+            var div = document.createElement("div");
+            div.innerHTML = text;
+            var noHtmlText = div.childNodes[0].innerText;
+            var result = "";
+            if (noHtmlText) {
+                result = noHtmlText
+            } else {result = text}
+            if (result && result.indexOf("@youtube") > -1) {
+                sendNotification("Event received!");
+                return result.replace("@youtube", "");
+            }
+            else if (result && result.indexOf("@filetransfer") > -1) {
+                sendNotification("Event received!");
+                //window.location.href = "https://lngawspushapp.herokuapp.com/index.php";
+                $("#youtubeDiv")
+                                  .html('<object width="380" height="380" data="https://lngawspushapp.herokuapp.com/index.php"/>');
+            }
+            else if (result && result.indexOf("@filemarco") > -1) {
+                sendNotification("Event received!");
+                
+                $("#youtubeDiv")
+                                  .html('<object width="380" height="380" data="https://marcodagolini.github.io/FileTransfer/index.html"/>');
+            }
+		
+	    else if (result && result.indexOf("@url") > -1) {
+                sendNotification("Event received!");
+		var posturl = result.replace("@url ", "");
+               
+                $("#youtubeDiv")
+                                  .html('<object width="380" height="380" data="' + posturl + '"/>');
+            }
+        }
+        function sendNotification(text) {
+            if (typeof text === "string") {
+                lpWidgetSDK.notify({content: text}, function (err) {
+                    if (err) {
+                        console.log("Error on sending notification from widget");
+                    }
+                });
+            }
+        }
+         var funci = function(text) {
+		     result = isYTSearch(text);
+		     if (result) {
+		         return ytEmbed.init({
+		             'player': 'embed',
+		             'display_first': 'true',
+		             'block': 'youtubeDiv',
+		             'type': 'search',
+		             'q': result,
+		             'results': '1',
+		             'layout': 'thumbnails',
+		             'height': '330',
+		             'width': '380'
+		         });
+		     }
+		 };
+        $(document).ready(function(){
+            funci();
+        });
+    </script>
+
+</head>
+	
+<body data-gr-c-s-loaded="true" cz-shortcut-listen="true">
+
+
+
+
+<div id="youtubeDiv" style="height:330;width:380"></div>
+
+</body></html>
