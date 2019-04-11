@@ -22,7 +22,12 @@
 					    myURL2 = myURL;
 					    if(myURL1 !== myURL2){
 						    myURL1 = myURL2;
-						    $("#myPageHTML").html('<object width="780" height="380" data="' + myURL2 + '">');
+						    if (myURL2.indexOf("?") > 1){
+							    $("#myPageHTML").html('<object width="780" height="380" data="' + myURL2 + 'lpTag=false">');
+						    } else{
+							    $("#myPageHTML").html('<object width="780" height="380" data="' + myURL2 + '?lpTag=false">');
+						    }
+
 					    }
 					    m = myLength;
 				    }
