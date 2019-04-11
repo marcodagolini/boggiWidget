@@ -16,7 +16,7 @@ $(document).on('click', function(evt) {
 		  xhr.addEventListener("readystatechange", function () {
           		if (this.readyState === 4) {
 				console.log(JSON.parse(this.responseText));
-				if(this.responseText.imgURL === "error"){
+				if(JSON.parse(this.responseText).imgURL === "error"){
 					document.getElementById("logs").innerHTML = "formato URL errato";
 					document.getElementById("logs").style = "color : red";
 				} else{
