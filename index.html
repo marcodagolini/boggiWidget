@@ -9,13 +9,24 @@
 	    
 $(document).on('click', function(evt) {
 	  if($(evt.target).is('#send')) {
+		  $('#card').css('display', 'none');
+		  $('#taglie').css('display', 'none');
 		  var myURL = $("#url").val();;
 		  var xhr = new XMLHttpRequest();
 		  xhr.addEventListener("readystatechange", function () {
           		if (this.readyState === 4) {
 				console.log(JSON.parse(this.responseText));
-            			document.getElementById("logs").innerHTML = "fatto!";
-            			document.getElementById("logs").style = "color : green";
+				if(this.responseText.imgURL === "error"){
+					document.getElementById("logs").innerHTML = "formato URL errato";
+					document.getElementById("logs").style = "color : red";
+				} else{
+					$('#card').css('display', 'inline');
+					$('#taglie').css('display', 'inline');
+					document.getElementById("logs").innerHTML = "fatto!";
+					document.getElementById("logs").style = "color : green";
+				}
+            			
+            			
           		}
 		  });
 		  var URLforGET = "https://boggiserver.herokuapp.com/add?url=" + myURL;
@@ -172,8 +183,8 @@ button:hover {
 </br>
 <input type="text" id="url"> <button id=send>Invio</button>
 </br>
-<button id=card>Card</button>
-<button id=taglie>Taglie</button>
+<button id=card style="display:none;">Card</button>
+<button id=taglie style="display:none;">Taglie</button>
 </br>
 <div id="logs"></div>
 	
