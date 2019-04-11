@@ -53,6 +53,11 @@ $(document).on('click', function(evt) {
 		  
 	  }
 	  if($(evt.target).is('#card')) {
+		  var taglieEsplose = "Disponibile nelle taglie: ";
+		  var taglieLength = myTaglie.length;
+		  for(var z = 0; z < taglieLength; z ++){
+			  taglieEsplose = taglieEsplose + myTaglie[z] + " ";
+		  }
 		  var DataCard = {
  			               "type": "vertical",
  			               "elements": [{
@@ -63,6 +68,16 @@ $(document).on('click', function(evt) {
  			               {
  				               "type": "text",
  				               "text": myTitle,
+ 				               "tooltip": "",
+ 				               "style": {
+ 					               "bold": true,
+ 					               "size": "large",
+						       "color": "#000000"
+ 				               }
+ 			               },
+				       {
+ 				               "type": "text",
+ 				               "text": taglieEsplose,
  				               "tooltip": "",
  				               "style": {
  					               "bold": true,
