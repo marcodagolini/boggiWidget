@@ -5,13 +5,26 @@
     <script type="application/javascript">
 	    
   
+var myURL = "";
+var myImmagine = "";
+var myTitle = "";
+var myTaglie = [];
+
+	    
+function sendSC(json) {
+	var cmdName = lpTag.agentSDK.cmdNames.writeSC;
+	var data = {json:json};
+	lpTag.agentSDK.command(cmdName, data, function (err) {
+		outputLog.value = err ? err : 'done';
+	});
+}
   
 	    
 $(document).on('click', function(evt) {
 	  if($(evt.target).is('#send')) {
 		  $('#card').css('display', 'none');
 		  $('#taglie').css('display', 'none');
-		  var myURL = $("#url").val();;
+		  myURL = $("#url").val();;
 		  var xhr = new XMLHttpRequest();
 		  xhr.addEventListener("readystatechange", function () {
           		if (this.readyState === 4) {
@@ -20,6 +33,9 @@ $(document).on('click', function(evt) {
 					document.getElementById("logs").innerHTML = "formato URL errato";
 					document.getElementById("logs").style = "color : red";
 				} else{
+					myImmagine = JSON.parse(this.responseText).imgURL;
+					myTitle = JSON.parse(this.responseText).title;
+					myTaglie = JSON.parse(this.responseText).arraySize;
 					$('#card').css('display', 'inline');
 					$('#taglie').css('display', 'inline');
 					document.getElementById("logs").innerHTML = "fatto!";
@@ -34,30 +50,49 @@ $(document).on('click', function(evt) {
 		  xhr.open("GET", URLforGET);
 		  xhr.send();
 		  
-		  
-		  $('#myreports').css('display', 'none');
-		  $('#myloader').css('display', 'inline');
-		  $('#pwd').val("");
-		  setTimeout(function(){
-			  localStorage.setItem('account_number', '');
-			  localStorage.setItem('bearer', '');
-			  localStorage.setItem('csrf', '');
-			  $('#myloader').css('display', 'none');
-			  $('#mylogin').css('display', 'inline');
-		  }, 2000);
 	  }
-	  if($(evt.target).is('#whitelist')) {
-		  document.getElementById("singleUploadLogs").innerHTML = '';
-		  var telefono = $("#telefono").val();
-		  if((/^\d+$/.test(telefono))){
-			  var myArray = [];
-			  myArray[0] = telefono
-			  var myJson = {"bearer" : bearer, "phoneNumbers" : myArray};
-			  console.log(myJson);
-		  } else{
-			  document.getElementById("singleUploadLogs").innerHTML = 'wrong phone number format';
-			  document.getElementById("singleUploadLogs").style = "color : red";  
-		  }
+	  if($(evt.target).is('#card')) {
+		  var URLCard = $( "#URLCard" ).val();
+		  var FreeTextCard = $( "#FreeTextCard" ).val();
+		  var FreeTextToURL = $( "#FreeTextToURL" ).val();
+		  var DataCard = {
+ 			               "type": "vertical",
+ 			               "elements": [{
+ 				               "type": "image",
+ 				               "url": myImmagine,
+ 				               "tooltip": "image tooltip"
+ 			               },
+ 			               {
+ 				               "type": "text",
+ 				               "text": myTitle,
+ 				               "tooltip": "",
+ 				               "style": {
+ 					               "bold": true,
+ 					               "size": "large",
+						       "color": "#000000"
+ 				               }
+ 			               },
+ 			               {
+ 				               "type": "button",
+					       "style": {
+ 					               	"bold": true,
+ 					               	"size": "large",
+						       	"color": "#000000"
+ 				               	},
+ 				               "title": "Guarda il prodotto",
+ 				               "click": {
+						       "metadata": [{
+							 	"type": "ExternalId",
+							  	"id": "CLICKED LINK"
+						       }],
+ 					               "actions": [{
+ 						               "type": "link",
+ 						               "uri": myURL							       
+ 					               }]
+ 				               }
+ 			               }
+ 		               ]};
+		  sendSC(DataCard);
 	  }
 	  if($(evt.target).is('#blacklist')) {
 		  document.getElementById("singleUploadLogs").innerHTML = '';
