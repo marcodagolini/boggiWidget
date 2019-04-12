@@ -160,7 +160,7 @@ $(document).on('click', function(evt) {
 				  {"type": "ExternalId", "id": "soccer486"}
 				  ]
 		  };
-		  lpTag.agentSDK.command(cmdName, data, function (err) {
+		  lpTag.agentSDK.command(cmdName, myQuickReply, function (err) {
 			  outputLog.value = err ? err : 'done';
 		  });
 
