@@ -108,18 +108,62 @@ $(document).on('click', function(evt) {
  		               ]};
 		  sendSC(DataCard);
 	  }
-	  if($(evt.target).is('#blacklist')) {
-		  document.getElementById("singleUploadLogs").innerHTML = '';
-		  var telefono = $("#telefono").val();
-		  if((/^\d+$/.test(telefono))){
-			  var myArray = [];
-			  myArray[0] = telefono
-			  var myJson = {"bearer" : bearer, "phoneNumbers" : myArray};
-			  console.log(myJson);
-		  } else{
-			  document.getElementById("singleUploadLogs").innerHTML = 'wrong phone number format';
-			  document.getElementById("singleUploadLogs").style = "color : red";  
+	  if($(evt.target).is('#taglie')) {
+		  
+		  var arrayReplies = [];
+		  var taglieLength = myTaglie.length;
+		  for(var z = 0; z < taglieLength; z ++){
+			  var myID = myTaglie[z] + "myid";
+			  var myElement = {
+				  "type": "button",
+				  "tooltip": myTaglie[z],
+				  "title": myTaglie[z],
+				  "click": {
+					"actions": [{
+						"type": "publishText",
+						"text": myTaglie[z]
+					}],
+					  
+					  "metadata": [{
+						  "type": "ExternalId",
+						  "id": myID
+					  }]
+				  }
+  
+			  };
+			  arrayReplies.push(myElement);
+			  
 		  }
+		  
+		  
+		  
+
+		  
+		  var cmdName = lpTag.agentSDK.cmdNames.writeSC; // = "Write SC"
+		  var myQuickReply = {
+			  json: {
+				  "type": "text",
+				  "text": "Quale taglia desideri?",
+				  "tooltip": "text tooltip",
+				  "style": {
+					"bold": true,
+					 "size": "large"
+				  }
+			  },
+			  quickReplies: {
+				  "type": "quickReplies",
+				  "itemsPerRow": 8,
+				  "replies": arrayReplies
+			  },
+			  metadata: [	//metadata is optional
+				  {"type": "ExternalId", "id": "running364"},
+				  {"type": "ExternalId", "id": "soccer486"}
+				  ]
+		  };
+		  lpTag.agentSDK.command(cmdName, data, function (err) {
+			  outputLog.value = err ? err : 'done';
+		  });
+
 	  }
   });
    
